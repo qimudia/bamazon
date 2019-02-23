@@ -1,6 +1,5 @@
 
 
-// Dependencies
 // =============================================================
 
 // Requiring our models
@@ -34,7 +33,12 @@ module.exports = function(app) {
 
   // POST route for saving a new Department
   app.post('/api/Department', function(req, res) {
-    db.Department.create(req.body).then(function(dbDepartment) {
+    db.Department.create({
+      name:req.body.name,
+     // department_id: req.body.department_id,
+      over_head_costs: req.body.over_head_costs
+      
+    }).then(function(dbDepartment) {
       res.json(dbDepartment);
     }).catch(function(error) {
       res.json({ error: error });
@@ -98,7 +102,13 @@ module.exports = function(app) {
 
   // POST route for adding new Product
   app.post('/api/Product', function(req, res) {
-    db.Product.create(req.body).then(function(dbProduct) {
+    db.Product.create({
+      name:req.body.name,
+      department_name: req.body.department_name,
+      price: parseFloat(req.body.price),
+      stock_quantity: req.body.stock_quantity,
+      product_sales: req.body.product_sales 
+    }).then(function(dbProduct) {
       res.json(dbProduct);
     }).catch(function(error) {
       res.json({ error: error });
