@@ -73,11 +73,6 @@ module.exports = function(app) {
     });
   });
 
-};
-
-
-module.exports = function(app) {
-
   // GET route for retrieving all Product
   app.get('/api/Product', function(req, res) {
     db.Product.findAll({}).then(function(dbProduct) {
