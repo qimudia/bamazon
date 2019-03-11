@@ -15,15 +15,27 @@ getProduct();
 const buildRows = function(item) {
   const tr = $("<tr>");
 
+  const input = $(`<input>`).attr({
+    type: Number,
+    min: 0,
+    id: item.id
+
+  });
+  
+  const quantity = $(`#${item.id}`).val();
+  console.log($(`#${item.id}`));
+  console.log(quantity);
+  console.log(item.id);
+  let totalPrice = quantity * item.price;
+
   tr.append(
     $("<form>"),
-    $('<input id="editbox1"  size="5" type="text">'),
+    $("<td>").append(input),
     $("<td>").text(item.product_name),
     $("<td>").text(item.department_name),
     $("<td>").text(item.price),
     $("<td>").text(item.stock_quantity),
-    $('<input id="editbox2"  size="8" type="text">'),
-    $("<td>").text(" "),
+    $("<td>").text(totalPrice),
     $('<input id="updatePrice" type = "submit" value="update"></input>'),
     $("<td>").text(" "),
     $('<input id="addToCart" type = "submit" value="Add to Cart"></input>'),
@@ -32,13 +44,13 @@ const buildRows = function(item) {
   return tr;
 };
 
-function updatePrice() {
-  let quantity = document.getElementById("editbox1").value;
+function updatePrice(item) {
+  let quantity = document.getElementById(item.id).value;
   let totalPrice = parseInt(quantity) * parseFloat(item.price);
   console.log(totalPrice);
   $("#editbox2").append(totalPrice);
 }
-updatePrice()//calculate();
+// updatePrice()//calculate();
 
 function addToCart() {
   console.log("adding to cart");
@@ -47,13 +59,13 @@ function addToCart() {
 //calculatee();
 
 //POST the product object to /api/product
-$.post("/api/Product", product)
-   .then(function(data) {
-    res.json(data);
-  })
-  .catch(function (err) {
-    res.json(err);
-  });
+// $.post("/api/Product", product)
+//    .then(function(data) {
+//     res.json(data);
+//   })
+//   .catch(function (err) {
+//     res.json(err);
+//   });
 // After receiving a response, call get product
 //
 
